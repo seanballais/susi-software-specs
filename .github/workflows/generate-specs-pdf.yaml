@@ -1,4 +1,4 @@
-name: Generate PDF of the Software Specifications
+name: Generate the PDF Version of the Susi Software Specifications
 
 on:
   push:
