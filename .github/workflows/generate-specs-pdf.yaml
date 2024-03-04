@@ -23,7 +23,7 @@ jobs:
       - name: Install Asciidoc Tools
         run: gem install asciidoctor-pdf
       - name: Generate the PDF File
-        run: asciidoctor-pdf -a toc -a revdate='${{ steps.publish-datetime.outputs.datetime }}' 'Susi Software Specifications.adoc'
+        run: asciidoctor-pdf -a toc -a revdate='${{ steps.publish-datetime.outputs.datetime }}' 'Susi_Software_Specifications.adoc'
       - name: Create a Release
         uses: 'marvinpinto/action-automatic-releases@latest'
         with:
@@ -31,4 +31,4 @@ jobs:
           automatic_release_tag: 'latest'
           prerelease: false
           title: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
-          files: 'Susi Software Specifications.pdf'
+          files: 'Susi_Software_Specifications.pdf'

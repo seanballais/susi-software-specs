@@ -1,1 +1,1 @@
-asciidoctor-pdf -a toc -a revdate="$(Get-Content .\attributes\revdate.txt)" '.\Susi Software Specifications.adoc'
+asciidoctor-pdf -a toc -a revdate="$(Get-Content .\attributes\revdate.txt)" '.\Susi_Software_Specifications.adoc'
