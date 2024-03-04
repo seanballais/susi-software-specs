@@ -33,4 +33,4 @@ jobs:
           name: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
           tag: '${{ steps.publish-datetime.outputs.datetime }}'
           body: '${{ steps.release-description.outputs.description }}'
-          files: 'Susi_Software_Specifications.pdf'
+          artifacts: 'Susi_Software_Specifications.pdf'
