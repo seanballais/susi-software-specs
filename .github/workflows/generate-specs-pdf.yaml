@@ -13,24 +13,27 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v2
-      - name: Get Publish Date and Time from the Attribute File
-        id: publish-datetime
-        run: echo "datetime=$(cat attributes/revdate.txt)" >> $GITHUB_OUTPUT
-      - name: Get Latest Commit Message For Use as Release Description
-        id: release-description
-        run: echo "description=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
       - name: Install Asciidoc Tools
         run: gem install asciidoctor-pdf
+      - name: Get Publish Date and Time from the Attribute File
+        id: publish-datetime
+        run: echo "datetime=$(cat attributes/revdate.txt)" >> $GITHUB_OUTPUT
       - name: Generate the PDF File
         run: asciidoctor-pdf -a toc -a revdate='${{ steps.publish-datetime.outputs.datetime }}' 'Susi_Software_Specifications.adoc'
+      - name: Get Latest Commit Message For Use as Release Description
+        id: release-description
+        run: echo "description=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+      - name: Create the Tag for the Release
+        id: release-tag
+        run: echo "tag=r$(date --date="${{ steps.publish-datetime.outputs.datetime }}" +"%Y-%m-%d_%H%M")" >> $GITHUB_OUTPUT
       - name: Create a Release
         uses: ncipollo/release-action@v1
         with:
           name: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
-          tag: '${{ steps.publish-datetime.outputs.datetime }}'
+          tag: '${{ steps.release-tag.outputs.tag }}'
           body: '${{ steps.release-description.outputs.description }}'
           artifacts: 'Susi_Software_Specifications.pdf'
