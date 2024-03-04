@@ -1,0 +1,31 @@
+= Susi Software Specifications
+Sean Francis N. Ballais <sean@seanballais.com>
+:title-page:
+:revdate: March 4, 2024
+
+<<<
+
+:toc:
+
+<<<
+
+include::disclaimer.adoc[]
+
+<<<
+
+:sectnums:
+:sectnumlevels: 1
+
+include::overview.adoc[]
+
+<<<
+
+include::approach.adoc[]
+
+<<<
+
+include::operations.adoc[]
+
+<<<
+
+include::timeline-of-development.adoc[]

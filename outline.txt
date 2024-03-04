@@ -1,0 +1,24 @@
+Susi Software Specifications
+Sean Francis N. Ballais
+Created on: March 04, 2024
+Last Updated: March 04, 2024
+
+I. Disclaimer
+II. Glossary
+III. Overview
+    A. Goals
+    B. Product Requirements
+    C. Assumptions
+    D. Out of Scope
+    E. Open Questions
+IV. Approach
+    A. Components
+    B. Security and Privacy
+    C. Test Plan
+V. Operations
+    D. Deployment
+    E. Rollback Plan
+    F. Monitoring and Logging
+    G. Metrics
+    H. Long-Term Support
+VI. Timeline of Development

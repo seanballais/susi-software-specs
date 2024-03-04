@@ -1,0 +1,9 @@
+== Timeline of Development
+
+. March 5 - 10, 2024:
+.. Development of Susi Core
+. March 11 - 16, 2024:
+.. Development of Susi GUI
+. March 17, 2024:
+.. Distribution to friends for regular usage and testing.
+... **Note**: Pray and hope that none of their machines explode in a fiery fashion.

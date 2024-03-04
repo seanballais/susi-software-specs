@@ -1,0 +1,3 @@
+== Disclaimer
+
+This specification document is a living document. It is continuously being updated to reflect the latest developments of Susi. This document may already be outdated. Please contact Sean Ballais <sean@seanballais.com> to request the latest version of this document.

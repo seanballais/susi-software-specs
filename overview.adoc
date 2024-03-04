@@ -1,0 +1,40 @@
+== Overview
+
+Each one of us has files that we see as critical and sensitive. These files can range from financial documents to backup codes. However, keeping these files in raw, unencrypted form puts their data at risk of being stolen or viewed easily. Cloud storage services increase these risks as well. These services increase the number of ways our data can be obtained without our permission. While these services have high-security standards, files stored in such services are not always guaranteed to be protected from theft as well. Most services store files in unencrypted form (and only during transit), making them easily readable by third parties.
+
+Susi is built to provide _one_ answer to this problem by locking/encrypting files and only opening them for a limited amount of time or until they are no longer being used. The initial version of this project can be completed in less than a month.
+
+=== Goals
+
+Our goal for Susi is to protect sensitive files and prevent unauthorized access to them with as few obstacles as possible to the user.
+
+=== Product Requirements
+
+- Target files are encrypted securely, and can only be decrypted by the password set by the user upon encryption.
+- Encrypted files must carry the hash of the original file to help with ensuring that the decrypted file is the original file.
+- The encrypted file must not be present when the decryption is successful. Consequently, after encryption, the original/decrypted file must no longer be present.
+- If encryption fails, the original file must remain. Naturally, if decryption fails or the hash of the original file is different from the decrypted file, the encrypted file must remain.
+- Decrypted files must remain decrypted while they're in use. However, once they're no longer in use for five minutes, they must be encrypted again.
+- Allow files to be encrypted and decrypted from the file manager.
+- Susi will open on startup.
+- Logs are written by the app to help with debugging and behaviour tracking.
+- Encrypted files have a file extension of `.ssef`.
+
+=== Assumptions
+
+- We are only targeting Windows 10 and 11 for now. We will add support for macOS and Linux at a later time.
+- Only files will be encrypted.
+
+=== Out of Scope
+
+- Susi does not aim to prevent the copying of protected files. What it does is simply prevent access to the data in these protected files.
+- Decrypted files will also be vulnerable to copying currently.
+- Folders will not be encrypted.
+
+=== Open Questions
+
+There are some considerations that are not completely resolved yet, and would require some inquiries and even testing.
+
+. Should we also allow encrypting/locking folders?
+. Should we compress encrypted files?
+. Does byte alignment help improve performance?

@@ -1,0 +1,23 @@
+== Operations
+
+=== Deployment and Rollout
+
+Anyone may request access to the app by contacting Sean Ballais. A download link to the app will be provided. The download link may have a time limit, however. If Susi becomes feasible to be sold to third parties, it will be made available from the website of Sean Ballais. When we deploy for release, a GitHub Action is used to automatically build the project and generate the setup files. The distributable files will primarily be made available via Humble Bundle, with users purchasing copies through the Humble Widget.
+
+=== Rollback Plan
+
+If there are any issues with the currently released versions of the software, such as a non-working installer or critical bug that slipped through testing, the affected versions will be retracted. If the current version has a critical issue, we will revert back to the previously known working version of Susi. Users will be informed of the change via social media. We may also contact users via email if we have their email addresses.
+
+=== Monitoring and Logging
+
+Susi will log any important information, warnings, or errors. These logs may then be voluntary uploaded by the user for whatever purposes, such as when attempting to fix any issues the user has encountered.
+
+If we use the Humble Widget, we will be granted access to real-time sales analytics provided by Humble Bundle. 
+
+=== Metrics
+
+Susi is considered to be a success when it has accomplished all product requirements have been completely satisfied. A secondary success metric is knowing at least 5 people are using Susi regularly. Being able to sell the software to others will be considered to be bonus points and a completely optional metric to achieve.
+
+=== Long-Term Support
+
+Susi will continuously be maintained by Sean Ballais for the foreseeable future. It will be maintained on a free-time basis. If there are a sizable number of users that find the app useful and use regularly, especially when selling the app is found to be feasible, more resources will be allocated in improving the app.
