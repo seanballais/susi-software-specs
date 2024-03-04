@@ -33,7 +33,7 @@ jobs:
       - name: Create a Release
         uses: ncipollo/release-action@v1
         with:
-          name: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
+          name: '${{ steps.publish-datetime.outputs.datetime }}'
           tag: '${{ steps.release-tag.outputs.tag }}'
           body: '${{ steps.release-description.outputs.description }}'
           artifacts: 'Susi_Software_Specifications.pdf'
