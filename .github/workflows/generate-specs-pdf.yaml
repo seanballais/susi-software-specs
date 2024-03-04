@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get Publish Date and Time from the Attribute File
         id: publish-datetime
-        run: echo "::set-output name=datetime::$(cat attributes/revdate.txt)"
+        run: echo "datetime=$(cat attributes/revdate.txt)" >> $GITHUB_OUTPUT
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
