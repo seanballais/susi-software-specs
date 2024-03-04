@@ -16,6 +16,9 @@ jobs:
       - name: Get Publish Date and Time from the Attribute File
         id: publish-datetime
         run: echo "datetime=$(cat attributes/revdate.txt)" >> $GITHUB_OUTPUT
+      - name: Get Latest Commit Message For Use as Release Description
+        id: release-description
+        run: echo "description=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -25,10 +28,9 @@ jobs:
       - name: Generate the PDF File
         run: asciidoctor-pdf -a toc -a revdate='${{ steps.publish-datetime.outputs.datetime }}' 'Susi_Software_Specifications.adoc'
       - name: Create a Release
-        uses: 'marvinpinto/action-automatic-releases@latest'
+        uses: ncipollo/release-action@v1
         with:
-          repo_token: '${{ secrets.GITHUB_TOKEN }}'
-          automatic_release_tag: 'latest'
-          prerelease: false
-          title: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
+          name: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
+          tag: '${{ steps.publish-datetime.outputs.datetime }}'
+          body: '${{ steps.release-description.outputs.description }}'
           files: 'Susi_Software_Specifications.pdf'
