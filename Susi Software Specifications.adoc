@@ -1,7 +1,12 @@
 = Susi Software Specifications
 Sean Francis N. Ballais <sean@seanballais.com>
 :title-page:
-:revdate: March 4, 2024
+
+// `:revdate:` is specified from the CLI with the data coming from attributes/revdate.txt.
+// For PowerShell, see `generate-pdf.ps1`. We organized things this way so that we can specify the correct
+// publish dates of the document in the Releases page in our GitHub repository in a simple manner. Note that
+// we have created a GitHub Action that will automatically generate a release when there is a new commit in
+// the master branch.
 
 <<<
 

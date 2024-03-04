@@ -1,0 +1,34 @@
+name: Generate PDF of the Software Specifications
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  generate:
+    name: Generate PDF
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Publish Date and Time from the Attribute File
+        id: publish-datetime
+        run: echo "::set-output name=datetime::$(cat attributes/revdate.txt)"
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install Asciidoc Tools
+        run: gem install asciidoctor-pdf
+      - name: Generate the PDF File
+        run: asciidoctor-pdf -a toc -a revdate='${{ steps.publish-datetime.outputs.datetime }}' 'Susi Software Specifications.adoc'
+      - name: Create a Release
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          automatic_release_tag: 'latest'
+          prerelease: false
+          title: 'Susi Software Specifications (${{ steps.publish-datetime.outputs.datetime }})'
+          files: 'Susi Software Specifications.pdf'
