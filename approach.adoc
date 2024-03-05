@@ -9,9 +9,12 @@ There will be two major components for Susi: (a) Susi Core, and (b) Susi GUI.
 
 Susi Core is the core application that has the following responsibilities and behaviours:
 
-- Monitors protected files and encrypt them using a password when they are no longer in use after 5 minutes.
+- Monitors protected files and encrypts them using a password when they are no longer in use after 5 minutes.
 - It is responsible for decrypting files.
 - Runs in the background.
+- It will use AES-CBC 256 for encrypting and decrypting. The key will be based on the password for the file.
+- The password will not have a limit on the maximum size of the password, but must have a minimum length of 12. The password will be hashed using Argon2. The hash is expected to be 256 bits long. This hash will then be used as the key for encrypting or decrypting protected files.
+- File hashes will be computed using SHA-256.
 
 On the other hand, Susi GUI is be assigned to handle user interactions. It has the following requirements:
 
@@ -55,6 +58,9 @@ In the metadata section, the first two bytes specify the length of the section. 
 
 | `0x00 0x01`
 | The original *filename* of the encrypted file, including the file extension.
+
+| `0xA5 0x19`
+| The *salt* of the password used to encrypt the protected file. The hexadecimal is derived from the Filipino and Waray word for "salt", "asin". Due to the non-existence of `N` in hexadecimal symbols, we used `9` since its first letter is `N`. It just so happens as well that you may pronounce the hex codes as "asi-nine", which can be modified to "asinin". "Asinin", in Filipino, means "to salt something". ;-\)
 
 | `0x8A 0x58`
 | The *hash* of the original, unencrypted file. Used to ensure that the decrypted file is the same as the original file. The ID is meant to be read as "hash", with 'H' being replaced with '8' since 'H' is unavailable in hexadecimal and there is no known one-symbol Jejemon or Leetspeak substitution for 'H' that uses a symbol that is valid in hexadecimal. So, we opted to use the ordinality of 'H' in the English alphabet, which is 8th, instead, since the number is a valid hexadecimal symbol.

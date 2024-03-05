@@ -19,6 +19,11 @@ Our goal for Susi is to protect sensitive files and prevent unauthorized access 
 - Susi will open on startup.
 - Logs are written by the app to help with debugging and behaviour tracking.
 - Encrypted files have a file extension of `.ssef`.
+- Files being encrypted or decrypted must be locked to prevent possible corruption and any access and data issues.
+- Encryption/Decryption of a file may be cancelled while it is ongoing.
+- The encryption key must not be stored somewhere in the encrypted file.
+- Locking files will not require re-entering the password of the file.
+- Changing the password for a file, whether encrypted or not yet, is allowed.
 
 === Assumptions
 
