@@ -15,6 +15,7 @@ Susi Core is the core application that has the following responsibilities and be
 - It will use AES-CBC 256 for encrypting and decrypting. The key will be based on the password for the file.
 - The password will not have a limit on the maximum size of the password, but must have a minimum length of 12. The password will be hashed using Argon2. The hash is expected to be 256 bits long. This hash will then be used as the key for encrypting or decrypting protected files.
 - File hashes will be computed using SHA-256.
+- Unprotect encrypted files, which will only proceed when the correct password was given.
 
 On the other hand, Susi GUI is be assigned to handle user interactions. It has the following requirements:
 
