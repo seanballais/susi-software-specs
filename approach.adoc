@@ -25,7 +25,7 @@ On the other hand, Susi GUI is be assigned to handle user interactions. It has t
 
 Communications between Susi GUI and Susi Core is done via IPC.
 
-Susi Core is written in Rust, while Susi GUI will is written in the "standard" language for writing GUI apps of the target operating system. In Windows, this is C#. In Linux, this is C or C++. For macOS, it is Swift.
+Susi Core is written in Rust, while Susi GUI written in the "standard" language for writing GUI apps of the target operating system. In Windows, this is C#. In Linux, this is C or C++. For macOS, it is Swift.
 
 ==== File Format
 
