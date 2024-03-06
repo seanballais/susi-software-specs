@@ -25,6 +25,7 @@ Our goal for Susi is to protect sensitive files and prevent unauthorized access 
 - Locking files will not require re-entering the password of the file.
 - Changing the password for a file, whether encrypted or not yet, is allowed.
 - Unprotecting files is allowed, but only after the correct password was entered.
+- The appropriate error message must be displayed for any errors that would occur.
 
 === Assumptions
 
