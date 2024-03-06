@@ -27,6 +27,7 @@ Our goal for Susi is to protect sensitive files and prevent unauthorized access 
 - Unprotecting files is allowed, but only after the correct password was entered.
 - The appropriate error message must be displayed for any errors that would occur.
 - Must be able to return to re-encrypting any watched files if Susi was closed.
+- The password will not have a limit on the maximum size of the password, but must have a minimum length of 12 and must use ASCII letters, numbers, and symbols.
 - An error message must be shown when Susi is suddenly closed while an encryption/decryption operation was ongoing. The message must display the files that were being operated on.
 - There must be a way to communicate to the user that an operation is ongoing.
 
