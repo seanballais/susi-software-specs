@@ -28,6 +28,7 @@ Our goal for Susi is to protect sensitive files and prevent unauthorized access 
 - The appropriate error message must be displayed for any errors that would occur.
 - Must be able to return to re-encrypting any watched files if Susi was closed.
 - An error message must be shown when Susi is suddenly closed while an encryption/decryption operation was ongoing. The message must display the files that were being operated on.
+- There must be a way to communicate to the user that an operation is ongoing.
 
 === Assumptions
 

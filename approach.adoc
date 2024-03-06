@@ -23,6 +23,7 @@ On the other hand, Susi GUI is be assigned to handle user interactions. It has t
 - When a message needs to be displayed, such as when encryption fails, it will display a notification bubble to be shown to the user.
 - Responsible for displaying the window that orients the user when running the app for the first time.
 - Responsible for integrating with the OS's file manager.
+- Displaying a list of files that are being encrypted or decrypted just like when Windows Explorer is cutting, copying, or pasting a file.
 
 Communications between Susi GUI and Susi Core is done via IPC.
 
