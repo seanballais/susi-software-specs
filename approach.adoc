@@ -47,7 +47,7 @@ The next part is the metadata. This contains any metadata we choose to add to th
 [source]
 ----
 [(length of metadata in bytes, 2 bytes)]
-[(metadata ID, 2 bytes) (metadata value length (MIL), 2 bytes) (metadata content, length specified by MVL)]
+[(metadata ID, 2 bytes) (metadata value length (MVL), 2 bytes) (metadata content, length specified by MVL)]
 [more metadata items here...]
 ----
 
@@ -67,7 +67,7 @@ In the metadata section, the first two bytes specify the length of the section. 
 | The *nonce* used when encrypting the original file. Used during decryption. The reasoning for the use of `9` is the same as the metadata ID for the salt.
 |===
 
-The next two bytes in the key specify the length of the metadata value in bytes. For easier communication, this length will be referred to as the MVL. The next MVL bytes will contain the value of the metadata item.
+The next two bytes in the key specify the length of the metadata value in bytes. The value is stored in little-endian for easier processing on our end. This length will be referred to as the MVL. The next MVL bytes will contain the value of the metadata item.
 
 Another metadata item may placed be after these bytes. We can also add padding bytes, denoted with `0x00`, to help with byte alignment. These paddings may help improve performance when decrypting files, but that remains to be tested.
 
