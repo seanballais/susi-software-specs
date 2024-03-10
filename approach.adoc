@@ -12,9 +12,8 @@ Susi Core is the core application that has the following responsibilities and be
 - Monitors protected files and encrypts them using a password when they are no longer in use after 5 minutes.
 - It is responsible for decrypting files.
 - Runs in the background.
-- It will use AES-CBC 256 for encrypting and decrypting. The key will be based on the password for the file.
+- It will use AES-256-GCM for encrypting and decrypting. The key will be based on the password for the file. Using this encryption algorithm means that data integrity is already built-in.
 - The password will be hashed using Argon2. The hash is expected to be 256 bits long. This hash will then be used as the key for encrypting or decrypting protected files.
-- File hashes will be computed using SHA-256.
 - Unprotect encrypted files, which will only proceed when the correct password was given.
 
 On the other hand, Susi GUI is be assigned to handle user interactions. It has the following requirements:
@@ -64,8 +63,8 @@ In the metadata section, the first two bytes specify the length of the section. 
 | `0xA5 0x19`
 | The *salt* of the password used to encrypt the protected file. The hexadecimal is derived from the Filipino and Waray word for "salt", "asin". Due to the non-existence of `N` in hexadecimal symbols, we used `9` since its first letter is `N`. It just so happens as well that you may pronounce the hex codes as "asi-nine", which can be modified to "asinin". "Asinin", in Filipino, means "to salt something". ;-\)
 
-| `0x8A 0x58`
-| The *hash* of the original, unencrypted file. Used to ensure that the decrypted file is the same as the original file. The ID is meant to be read as "hash", with 'H' being replaced with '8' since 'H' is unavailable in hexadecimal and there is no known one-symbol Jejemon or Leetspeak substitution for 'H' that uses a symbol that is valid in hexadecimal. So, we opted to use the ordinality of 'H' in the English alphabet, which is 8th, instead, since the number is a valid hexadecimal symbol.
+| `0x90 0x9C`
+| The *nonce* used when encrypting the original file. Used during decryption. The reasoning for the use of `9` is the same as the metadata ID for the salt.
 |===
 
 The next two bytes in the key specify the length of the metadata value in bytes. For easier communication, this length will be referred to as the MVL. The next MVL bytes will contain the value of the metadata item.
