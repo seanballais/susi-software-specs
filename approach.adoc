@@ -40,7 +40,7 @@ The file identifier helps us determine if the encrypted file is a valid `.ssef` 
 [(format version, 2 bytes)]
 ----
 
-The first two bytes is the file identifier, and the next two bytes specify the format version. The likelihood of this format reaching a version greater than 65,535 (stem:[2^16^ - 1]) is low, as such, we can safely allocate two bytes for the format version.
+The first two bytes is the file identifier, and the next two bytes specify the format version. The likelihood of this format reaching a version greater than 65,535 (stem:[2^16^ - 1]) is low, as such, we can safely allocate two bytes for the format version. The file identifier is stored in big-endian (for readability), while the format version is stored in little-endian (for easier processing).
 
 The next part is the metadata. This contains any metadata we choose to add to the file that we can use during decryption. Most of the metadata is expected to be key-value pairings. This part has the following format:
 
@@ -51,7 +51,7 @@ The next part is the metadata. This contains any metadata we choose to add to th
 [more metadata items here...]
 ----
 
-In the metadata section, the first two bytes specify the length of the section. This gives the section a maximum of 65,536 bytes, with 65,534 bytes of it being usable. The next bytes are the metadata key-value pairs, also referred to as metadata items. The first four bytes contain the key of the pair. The first two bytes of the key contains the ID. This ID specifies what type of metadata the item is holding. Currently, we support the following IDs:
+In the metadata section, the first two bytes specify the length of the section. This gives the section a maximum of 65,536 bytes, with 65,534 bytes of it being usable. The next bytes are the metadata key-value pairs, also referred to as metadata items. The first four bytes contain the key of the pair. The first two bytes of the key contains the ID. This ID specifies what type of metadata the item is holding. In our file, it is stored in big-endian for readability reasons. Currently, we support the following IDs:
 
 [cols="1, 4"]
 |===
@@ -71,7 +71,7 @@ The next two bytes in the key specify the length of the metadata value in bytes.
 
 Another metadata item may placed be after these bytes. We can also add padding bytes, denoted with `0x00`, to help with byte alignment. These paddings may help improve performance when decrypting files, but that remains to be tested.
 
-If the specified length of the metadata section has already been reached, the encrypted data will be reached. This data is the last section of the file and will span until the end of the file. It will be the data we will be decrypting and saving into another unencrypted file.
+If the specified length of the metadata section has already been reached, the encrypted data will be reached. This data is the last section of the file and will span until the end of the file. It will be the data we will be decrypting and saving into another unencrypted file. We do not specify the endianness of this data, and we will simply depend on the implementation of AES-256-GCM we use for how things are stored.
 
 === Security and Privacy
 
