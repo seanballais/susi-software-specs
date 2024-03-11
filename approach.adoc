@@ -51,7 +51,7 @@ The next part is the metadata. This contains any metadata we choose to add to th
 [more metadata items here...]
 ----
 
-In the metadata section, the first two bytes specify the length of the section. This gives the section a maximum of 65,536 bytes, with 65,534 bytes of it being usable. The next bytes are the metadata key-value pairs, also referred to as metadata items. The first four bytes contain the key of the pair. The first two bytes of the key contains the ID. This ID specifies what type of metadata the item is holding. In our file, it is stored in big-endian for readability reasons. Currently, we support the following IDs:
+In the metadata section, the first two bytes specify the length of the section after these two bytes. This gives the section a maximum of 65,536 bytes, with 65,534 bytes of it being usable. The next bytes are the metadata key-value pairs, also referred to as metadata items. The first four bytes contain the key of the pair. The first two bytes of the key contains the ID. This ID specifies what type of metadata the item is holding. In our file, it is stored in big-endian for readability reasons. Currently, we support the following IDs:
 
 [cols="1, 4"]
 |===
