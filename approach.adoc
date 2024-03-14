@@ -28,6 +28,14 @@ Communications between Susi GUI and Susi Core is done via IPC.
 
 Susi Core is written in Rust, while Susi GUI written in the "standard" language for writing GUI apps of the target operating system. In Windows, this is C#. In Linux, this is C or C++. For macOS, it is Swift.
 
+==== Architecture
+.The architecture of Susi Core.
+image::assets/Susi Architecture.jpg[]
+
+Currently, the architecture design for Susi GUI is incomplete. However, we have a design ready for Susi Core.
+
+Susi Core has three major subcomponents: (1) the IPC Handler, (2) the File Watcher, and (3) the Director. The IPC Handler is responsible for taking requests and sending responses to any Susi clients. The File Watcher is responsible for watching any file that will be re-encrypted later. These two subcomponents communicate with the Director, which is responsible for starting and stopping tasks. The Director also communicates with the IPC Handler about updates on the tasks such as the progress of an ongoing encryption operation.
+
 ==== File Format
 
 The file format for an encrypted file (`.ssef`) consists of three parts: (a) the file identifier, (b) the metadata, and (c) the encrypted file data. The version of the file format here is designated to be v1. This file format is designed to be compatible with any version of Susi that [.line-through]#is loyal to# supports v1 of this format.
