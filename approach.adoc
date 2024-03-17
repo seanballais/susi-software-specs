@@ -7,7 +7,7 @@
 
 There will be two major components for Susi: (a) Susi Core, and (b) Susi GUI.
 
-Susi Core is the core application that has the following responsibilities and behaviours:
+Susi Core is the core component that has the following responsibilities and behaviours:
 
 - Monitors protected files and encrypts them using a password when they are no longer in use after 5 minutes.
 - It is responsible for decrypting files.
@@ -24,17 +24,7 @@ On the other hand, Susi GUI is be assigned to handle user interactions. It has t
 - Responsible for integrating with the OS's file manager.
 - Displaying a list of files that are being encrypted or decrypted just like when Windows Explorer is cutting, copying, or pasting a file.
 
-Communications between Susi GUI and Susi Core is done via IPC.
-
-Susi Core is written in Rust, while Susi GUI written in the "standard" language for writing GUI apps of the target operating system. In Windows, this is C#. In Linux, this is C or C++. For macOS, it is Swift.
-
-==== Architecture
-.The architecture of Susi Core.
-image::assets/Susi Architecture.jpg[]
-
-Currently, the architecture design for Susi GUI is incomplete. However, we have a design ready for Susi Core.
-
-Susi Core has three major subcomponents: (1) the IPC Handler, (2) the File Watcher, and (3) the Director. The IPC Handler is responsible for taking requests and sending responses to any Susi clients. The File Watcher is responsible for watching any file that will be re-encrypted later. These two subcomponents communicate with the Director, which is responsible for starting and stopping tasks. The Director also communicates with the IPC Handler about updates on the tasks such as the progress of an ongoing encryption operation.
+Susi Core is written in Rust, while Susi GUI written in the "standard" language for writing GUI apps of the target operating system. In Windows, this is C#. In Linux, this is C or C++. For macOS, it is Swift. Susi Core will be compiled into a library that can be called by Susi GUI.
 
 ==== File Format
 
