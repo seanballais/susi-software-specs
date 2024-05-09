@@ -26,6 +26,11 @@ On the other hand, Susi GUI is be assigned to handle user interactions. It has t
 
 Susi Core is written in Rust, while Susi GUI written in the "standard" language for writing GUI apps of the target operating system. In Windows, this is C#. In Linux, this is C or C++. For macOS, it is Swift. Susi Core will be compiled into a library that can be called by Susi GUI.
 
+==== Key Generation and Storage
+Generating the key used to encrypt and decrypt the data is based on a user-provided password string. For security reasons, we should not use this string directly as a key. Instead, we should derive a key from that string. In Susi Core, we implement that using Argon2.
+
+Using the user-provided password _and_ a randomly generated salt, we use Argon2 to generate a 512-bit (64 bytes) key. We half this key into **two** equal 256-bit (32 bytes) keys, stem:[K_{0}] and stem:[K_{1}]. stem:[K_{0}] is used as the key to encrypt and decrypt files. However, we won't be storing this key in any resulting encrypted file (`.ssef`). Instead, we will store an HMAC of stem:[K_{0}], stem:[H_{0}]. Computation of the HMAC of stem:[K_{0}] is relatively simple. We will simply use stem:[K_{1}] as the key in the HMAC function we will use to obtain stem:[H_{0}]. stem:[H_{0}] will be stored in the metadata section of encrypted files (`.ssef`).
+
 ==== File Format
 
 The file format for an encrypted file (`.ssef`) consists of three parts: (a) the file identifier, (b) the metadata, and (c) the encrypted file data. The version of the file format here is designated to be v1. This file format is designed to be compatible with any version of Susi that [.line-through]#is loyal to# supports v1 of this format.
@@ -63,6 +68,9 @@ In the metadata section, the first two bytes specify the length of the section a
 
 | `0x90 0x9C`
 | The *nonce* used when encrypting the original file. Used during decryption. The reasoning for the use of `9` is the same as the metadata ID for the salt.
+
+| `0xCE 0xBE`
+| This is where stem:[H_{0}] is stored. We will use this value during decryption to verify that the password submitted by the user is correct.
 |===
 
 The next two bytes in the key specify the length of the metadata value in bytes. The value is stored in little-endian for easier processing on our end. This length will be referred to as the MVL. The next MVL bytes will contain the value of the metadata item.
