@@ -29,7 +29,7 @@ Susi Core is written in Rust, while Susi GUI written in the "standard" language 
 ==== Key Generation and Storage
 Generating the key used to encrypt and decrypt the data is based on a user-provided password string. For security reasons, we should not use this string directly as a key. Instead, we should derive a key from that string. In Susi Core, we implement that using Argon2.
 
-Using the user-provided password _and_ a randomly generated salt, we use Argon2 to generate a 512-bit (64 bytes) key. We half this key into **two** equal 256-bit (32 bytes) keys, stem:[K_{0}] and stem:[K_{1}]. stem:[K_{0}] is used as the key to encrypt and decrypt files. However, we won't be storing this key in any resulting encrypted file (`.ssef`). Instead, we will store an HMAC of stem:[K_{0}], stem:[H_{0}]. Computation of the HMAC of stem:[K_{0}] is relatively simple. We will simply use stem:[K_{1}] as the key in the HMAC function we will use to obtain stem:[H_{0}]. stem:[H_{0}] will be stored in the metadata section of encrypted files (`.ssef`).
+Using the user-provided password _and_ a randomly generated salt, we use Argon2 to generate a 512-bit (64 bytes) key. We half this key into **two** equal 256-bit (32 bytes) keys, stem:[K_{0}] and stem:[K_{1}]. stem:[K_{0}] is used as the key to encrypt and decrypt files. However, we won't be storing this key in any resulting encrypted file (`.ssef`). Instead, we will store an HMAC of stem:[K_{0}], which we will refer to as the password MAC. Computation of the HMAC of stem:[K_{0}] is relatively simple. We will simply use stem:[K_{1}] as the key in the HMAC function we will use to obtain the password MAC. The MAC will be stored in the metadata section of encrypted files (`.ssef`).
 
 ==== File Format
 
@@ -66,11 +66,11 @@ In the metadata section, the first two bytes specify the length of the section a
 | `0xA5 0x19`
 | The *salt* of the password used to encrypt the protected file. The hexadecimal is derived from the Filipino and Waray word for "salt", "asin". Due to the non-existence of `N` in hexadecimal symbols, we used `9` since its first letter is `N`. It just so happens as well that you may pronounce the hex codes as "asi-nine", which can be modified to "asinin". "Asinin", in Filipino, means "to salt something". ;-\)
 
+| `0x44 0xAC`
+| This is where the password MAC is stored. We will use this value during decryption to verify that the password submitted by the user is correct.
+
 | `0x90 0x9C`
 | The *nonce* used when encrypting the original file. Used during decryption. The reasoning for the use of `9` is the same as the metadata ID for the salt.
-
-| `0xCE 0xBE`
-| This is where stem:[H_{0}] is stored. We will use this value during decryption to verify that the password submitted by the user is correct.
 |===
 
 The next two bytes in the key specify the length of the metadata value in bytes. The value is stored in little-endian for easier processing on our end. This length will be referred to as the MVL. The next MVL bytes will contain the value of the metadata item.
